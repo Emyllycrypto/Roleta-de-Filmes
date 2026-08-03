@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --pastel-yellow: #fff5cc;
+  --pastel-yellow-dark: #ffe680;
+  --pastel-yellow-accent: #f0c419;
+  --pastel-orange: #ffd9b3;
+  --pastel-bg: #fffdf5;
+  --text-color: #0a0907;
+  --card-bg: #ffffff;
+  --radius: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--pastel-bg);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Card com efeito de rotação 3D */
+.card-container {
+  width: 100%;
+  max-width: 500px;
+  height: 720px;
+  perspective: 1000px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  border: 4px solid var(--pastel-yellow-dark);
+  box-shadow: 0 10px 25px rgba(240, 196, 25, 0.15);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+
+  /* === FUNDO DO CARD COM IMAGEM === */
+  background-image: linear-gradient(rgba(255, 252, 252, 0.4), rgba(217, 255, 49, 0.2)), url('img/fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1.2rem;
+  color: #1c212b;
+  text-align: center;
+}
+
+.btn-flip {
+  background: var(--pastel-yellow);
+  border: 2px solid var(--pastel-yellow-dark);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-flip:hover {
+  background: var(--pastel-yellow-dark);
+  transform: translateY(-1px);
+}
+
+/* Seção da Roleta */
+.wheel-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+
+}
+
+.wheel-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin-bottom: 50px;
+}
+
+.pointer {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32px;
+  color: #ff4757;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+#wheelCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.btn-main {
+  background: var(--pastel-yellow-dark);
+  border: none;
+  color: #252009;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 10px 26px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(240, 196, 25, 0.3);
+  transition: all 0.2s;
+}
+
+.btn-main:hover:not(:disabled) {
+  background: var(--pastel-yellow-accent);
+  transform: scale(1.05);
+}
+
+.btn-main:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result-area {
+  margin-top: 20px;
+  background: var(--pastel-yellow);
+  padding: 5px;
+  border-radius: 15px;
+  text-align: center;
+  width: 100%;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.result-area.hidden {
+  display: none;
+}
+
+.result-area h2 {
+  color: #5a4b10;
+  font-size: 1.2rem;
+  margin: 5px 0 10px 0;
+}
+
+/* Botão em formato de Ticket de Cinema 🎟️ */
+.btn-confirm {
+  position: relative;
+  background-color: #ffd9b3; /* Tom pastel alaranjado suave */
+  color: #6e411b;
+  font-weight: bold;
+  font-size: 0.95rem;
+  padding: 12px 28px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+  display: inline-block;
+  
+  /* Efeito de borda interna de ticket */
+  outline: 2px dashed #e6a875;
+  outline-offset: -6px;
+  
+  /* Formato do Ticket: Recortes redondos nas laterais e cantos levemente curvados */
+  clip-path: polygon(
+    0% 0%, 
+    100% 0%, 
+    100% 35%, 
+    95% 50%, 
+    100% 65%, 
+    100% 100%, 
+    0% 100%, 
+    0% 65%, 
+    5% 50%, 
+    0% 35%
+  );
+  
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Efeito ao passar o mouse */
+.btn-confirm:hover {
+  background-color: #ffc999;
+  transform: scale(1.05) rotate(-1deg); /* Destaque com leve inclinação fofa */
+}
+
+/* Efeito ao clicar */
+.btn-confirm:active {
+  transform: scale(0.98);
+}
+/* Lista de Filmes */
+.movie-list-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.reset-box {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.btn-danger {
+  background: #bad8e5;
+  border: none;
+  color: #5a2220;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.movie-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: px;
+}
+
+.movie-item {
+  background: var(--pastel-bg);
+  border: 1px solid var(--pastel-yellow-dark);
+  padding: 12px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.movie-item.watched .movie-title {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.movie-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+/* Sistema de Avaliação por Troféu do Oscar */
+.stars {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.oscar-trophy {
+  width: 24px; /* Tamanho pequeno na lista */
+  height: 24px;
+  object-fit: contain;
+  cursor: pointer;
+  /* Efeito para deixar a imagem cinza por padrão */
+  filter: grayscale(100%) opacity(0.4);
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+
+.oscar-trophy:hover {
+  transform: scale(1.15);
+}
+
+/* Quando selecionado (ativo), remove o cinza e restaura a cor original */
+.oscar-trophy.active {
+  filter: grayscale(0%) opacity(1);
+}
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.oscar-trophy {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.oscar-trophy:hover {
+  transform: scale(1.2);
+}
+
+/* === RODAPÉ / CRÉDITOS === */
+.footer-creditos {
+ position: fixed;
+ margin-top:680px;
+  padding: 15px 0 25px 0;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(218, 99, 99, 0.803); /* Cor clara com leve transparência */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Sombra para destacar do fundo */
+  letter-spacing: 0.5px;
+}
+
+/* Destaque para o seu nome */
+.footer-creditos span {
+  font-weight: bold;
+  color: #ffe680; /* Amarelo dourado pastel para combinar com as fatias */
+}

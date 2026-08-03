@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roleta Fofa de Filmes</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/339d0fd715.js" crossorigin="anonymous"></script>
+    <!-- Lib externa para os confetes -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <div class="card-container">
+        <div class="card" id="card">
+
+            <!-- LADO DA FRENTE: ROLETA -->
+            <div class="card-face card-front">
+                <header>
+
+                    <h1> <i class="fa-solid fa-film" style="color: rgb(255, 212, 59);"></i> Roleta de Filmes </h1>
+                    <button class="btn-flip" id="btnToBack"><i class="fa-solid fa-ellipsis-vertical"
+                            style="color: rgb(255, 212, 59);"></i>Lista de Filmes & Avaliações</button>
+                </header>
+
+                <main class="wheel-section">
+                    <div class="wheel-wrapper">
+                        <div class="pointer"><i class="fa-solid fa-caret-down fa-shake"
+                                style="color: rgb(129, 152, 179);"></i></div>
+                        <canvas id="wheelCanvas" width="450" height="450"></canvas>
+                    </div>
+
+                    <button id="btnSpin" class="btn-main"><i class="fa-solid fa-spiral fa-spin-pulse"
+                            style="color: rgb(255, 212, 59);"></i> Girar Roleta! </button>
+
+                    <!-- Área de Confirmação do Filme Sorteado -->
+                    <div id="resultArea" class="result-area hidden">
+                        <p>Filme sorteado:</p>
+                        <h2 id="selectedMovieTitle">--</h2>
+                        <button id="btnConfirm" class="btn-confirm">Clique no Ticket para reservar!</button>
+                    </div>
+
+                </main>
+
+
+            </div>
+
+            <!-- LADO DE TRÁS: LISTA E AVALIAÇÃO -->
+            <div class="card-face card-back">
+                <header>
+                    <i class="fa-solid fa-star fa-flip-360" style="color: rgb(255, 212, 59);"></i>
+                    <h1><i class="fa-solid fa-ticket" style="color: rgb(255, 212, 59);"></i>Nossos Filmes</h1>
+                    <button class="btn-flip" id="btnToFront"> Voltar para a Roleta</button>
+                </header>
+
+                <div class="movie-list-container">
+                    <div class="reset-box">
+                        <button id="btnResetList" class="btn-danger"><i class="fa-solid fa-rotate fa-spin-pulse"
+                                style="color: rgb(255, 255, 255);"></i> Restaurar todos os filmes</button>
+                    </div>
+                    <ul id="movieList" class="movie-list"></ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="footer-creditos">
+        @emylly
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
